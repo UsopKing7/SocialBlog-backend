@@ -87,20 +87,17 @@ Este proyecto se ejecuta con Docker. Usa `docker-compose` para levantar todos lo
 - `redis`: Cache en memoria
 - `pgadmin`: Cliente web para PostgreSQL
 
-### Comandos útiles:
+### para iniciar proyecto en docker:
 
 ```bash
 # Levantar todos los servicios
-docker-compose up -d
+docker compose up --build
 
-# Ver logs
-docker-compose logs -f
+# Entrar a la base de datos de docker 
+docker exec -it backend-socialblog_backend-1 sh
 
 # Correr migraciones
-npx prisma migrate dev
-
-# Acceder a pgadmin en navegador
-http://localhost:5050
+npx prisma migrate deploy
 ```
 
 ---
@@ -113,6 +110,7 @@ Ejemplo:
 DATABASE_URL="postgresql://root:postgre@localhost:5432/blogdb"
 SECRET_KEY="supersecreto"
 PORT=3000
+SAL=10
 ```
 
 ---
