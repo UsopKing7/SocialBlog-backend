@@ -1,12 +1,10 @@
-import { prisma } from '../config/db'
 import { UserDB } from '../types/user.type'
+import { postRepository } from '../repositories/autch.repository'
 import bcrypt from 'bcrypt'
 
 export const loginServices = {
-  login: async (user: { email: string, password: string }): Promise<UserDB> => {
-    const usuario = await prisma.user.findUnique({
-      where: { email: user.email }
-    })
+  login: async (user: { email: string, password: string}): Promise<UserDB> => {
+    const usuario = await postRepository.findEmail( user.email )
 
     if (!usuario) throw new Error ('Error al encontrar el email del usuario')
     const validatePassword = await bcrypt.compare(user.password, usuario.password)
