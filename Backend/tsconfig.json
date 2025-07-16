@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",                   // Node 20 soporta features modernas, ES2022 o incluso ESNext
+    "module": "NodeNext",                 // Usa módulos ES nativos (import/export)
+    "moduleResolution": "nodenext",      // Resolver módulos con soporte ES modules + CommonJS
+    "lib": ["ES2022"],                    // Librerías modernas de JS
+    "types": ["node"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+
+    "outDir": "./build",
+    "rootDir": "./src",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    "sourceMap": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    "incremental": true,
+    "tsBuildInfoFile": "./buildcache/.tsbuildinfo",
+
+    "exactOptionalPropertyTypes": true,
+    "useUnknownInCatchVariables": true,
+
+    "allowJs": false,
+    "isolatedModules": true,
+    "noEmitOnError": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "build", "buildcache"]
+}

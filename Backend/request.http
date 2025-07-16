@@ -1,0 +1,18 @@
+### Request para logear al user
+POST http://localhost:3333/api/login
+Content-Type: application/json
+
+{
+  "email": "nicolasguarachi888@gmail.com",
+  "password": "Nicolas-9090"
+}
+
+### Request para registro de user
+POST http://localhost:3333/api/register
+Content-Type: application/json
+
+{
+  "name": "UsopKing7",
+  "email": "nicolasguarachi888@gmail.com",
+  "password": "Nicolas-9090"
+}
