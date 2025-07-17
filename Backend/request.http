@@ -16,3 +16,11 @@ Content-Type: application/json
   "email": "nicolasguarachi888@gmail.com",
   "password": "Nicolas-9090"
 }
+
+### Request para creacion de roles
+POST http://localhost:3333/api/create/role/ee0ae645-771e-49e1-9a92-901f89085007
+Content-Type: application/json
+
+{
+  "name_role": "admin"
+}
