@@ -7,7 +7,6 @@ services:
       - .env
     depends_on:
       - db
-    command: sh -c "npx prisma migrate deploy && node build/app.js"
 
   db:
     image: postgres:15
