@@ -23,12 +23,20 @@ model User {
   likes           Like[]
   reports         Report[]
   roles           UserRole[]
+  tokens          Token[]
   created_at      DateTime        @default(now())
+}
+
+model Token {
+  id_token        String          @id @default(uuid()) @unique
+  token           String
+  id_user         String
+  user            User            @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
 }
 
 model Role {
   id_role         String          @id @default(uuid()) @unique
-  name_rol        String          @unique
+  name_role       String          @unique
   users           UserRole[]
 }
 
