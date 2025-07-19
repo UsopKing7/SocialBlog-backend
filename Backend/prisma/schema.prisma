@@ -30,7 +30,7 @@ model User {
 model Token {
   id_token        String          @id @default(uuid()) @unique
   token           String
-  id_user         String
+  id_user         String          @unique
   user            User            @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
 }
 
