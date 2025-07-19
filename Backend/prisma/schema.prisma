@@ -1,0 +1,124 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id_user         String          @id @default(uuid()) @unique
+  name            String
+  email           String          @unique
+  password        String
+  posts           Post[]
+  comments        Comment[]
+  likes           Like[]
+  reports         Report[]
+  roles           UserRole[]
+  tokens          Token[]
+  created_at      DateTime        @default(now())
+}
+
+model Token {
+  id_token        String          @id @default(uuid()) @unique
+  token           String
+  id_user         String          @unique
+  user            User            @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
+}
+
+model Role {
+  id_role         String          @id @default(uuid()) @unique
+  name_role       String          @unique
+  users           UserRole[]
+}
+
+model UserRole {
+  id_user_role    String          @id @default(uuid()) @unique
+  id_user         String
+  id_role         String
+
+  user            User            @relation(fields: [id_user], references: [id_user])
+  role            Role            @relation(fields: [id_role], references: [id_role])
+
+  @@unique([id_user, id_role])
+}
+
+model Post {
+  id_post         String          @id @default(uuid()) @unique
+  title           String
+  content         String
+  id_author       String
+
+  author          User            @relation(fields: [id_author], references: [id_user])
+  comments        Comment[]
+  likes           Like[]
+  status          PostStatus      @default(PUBLISHED)
+  created_at      DateTime        @default(now())
+}
+
+model Comment {
+  id_comment      String          @id @default(uuid()) @unique
+  content         String
+  id_post         String
+  id_author       String
+
+  post            Post            @relation(fields: [id_post], references: [id_post])
+  author          User            @relation(fields: [id_author], references: [id_user])
+  likes           Like[]
+  reports         Report[]
+  status          CommentStatus   @default(VISIBLE)
+  created_at      DateTime        @default(now())
+}
+
+model Like {
+  id_like         String          @id @default(uuid()) @unique
+  id_user         String
+  id_post         String?
+  id_comment      String?
+  created_at      DateTime        @default(now())
+
+  user            User            @relation(fields: [id_user], references: [id_user])
+  post            Post?           @relation(fields: [id_post], references: [id_post])
+  comment         Comment?        @relation(fields: [id_comment], references: [id_comment])
+
+  @@unique([id_user, id_post])
+  @@unique([id_user, id_comment])
+}
+
+model Report {
+  id_report       String          @id @default(uuid()) @unique
+  id_comment      String
+  id_reporter     String
+  reason          String
+  status          ReportStatus    @default(PENDING)
+  created_at      DateTime        @default(now())
+
+  comment         Comment         @relation(fields: [id_comment], references: [id_comment])
+  reporter        User            @relation(fields: [id_reporter], references: [id_user])
+}
+
+enum PostStatus {
+  PUBLISHED
+  HIDDEN
+  DELETED
+}
+
+enum CommentStatus {
+  VISIBLE
+  BLOCKED
+  DELETED
+}
+
+enum ReportStatus {
+  PENDING
+  REVIEWED
+  DISMISSED
+}
