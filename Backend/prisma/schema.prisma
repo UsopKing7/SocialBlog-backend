@@ -62,6 +62,8 @@ model Post {
   likes           Like[]
   status          PostStatus      @default(PUBLISHED)
   created_at      DateTime        @default(now())
+
+  @@map("Post")
 }
 
 model Comment {
