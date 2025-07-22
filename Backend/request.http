@@ -18,9 +18,36 @@ Content-Type: application/json
 }
 
 ### Request para creacion de roles
-POST http://localhost:3333/api/create/role/21e7dcfd-347d-42ba-89d6-1da059410f7e
+POST http://localhost:3333/api/create/role/7b20a623-7c45-4550-aeec-3293782bdebb
 Content-Type: application/json
 
 {
   "name_role": "admin"
 }
+
+### Request para creacion de post => publicacion
+POST http://localhost:3333/api/user/create-post/7b20a623-7c45-4550-aeec-3293782bdebb
+Content-Type: application/json
+
+{
+  "title": "Proyecto nicolas => Backend",
+  "content": "este es mi primer proyecto grande con muchas tegnologias nuevas"
+}
+
+### Request para actualizar el post segun el usuairo => update post
+PATCH http://localhost:3333/api/user/61c96ca3-bbb0-4fab-89af-07f0adef7a87/update-post/22bd29c6-1daa-44b7-b598-d75316ea5b4b
+Content-Type: application/json
+
+{
+  "title": "new title => 2",
+  "content": "new content => 2"
+}
+
+### Request para obtener todos los Posts
+GET http://localhost:3333/api/posts
+
+### Request para ontener todos los posts de un usuario
+GET http://localhost:3333/api/user/posts/7b20a623-7c45-4550-aeec-3293782bdebb
+
+### Request para eliminar un post por usuario
+DELETE http://localhost:3333/api/user/46140978-0352-49f0-af71-8907fcd8a77b/delete-post/9696a37f-4a43-424b-8675-3c645f61c456
