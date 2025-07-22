@@ -1,8 +1,9 @@
 import { PORT } from './config/env'
-import { app } from './server'
+import { server} from './server'
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.table({
     URL: `http://localhost:${PORT}`
   })
 })
+
