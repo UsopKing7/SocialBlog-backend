@@ -8,17 +8,16 @@ const socket = io('http://localhost:3333', {
 socket.on('connect', () => {
   console.log('[Cliente] Conectado con ID:', socket.id)
 
-  socket.emit('publicacion', {
-    title: 'Post desde TS',
-    content: 'Este es un post de prueba',
-    id_author: "61c96ca3-bbb0-4fab-89af-07f0adef7a87"
+  socket.emit('comment', {
+    content: 'nuevo comentario para el post',
+    id_author: "485d136b-3df7-4584-8805-5b0f692ab940",
+    id_post: "82f87bb3-abe9-49e3-8206-2d98841a81bd",
   })
 })
 
-socket.on('nuevaPublicacion', (data) => {
-  console.log('[Cliente] Nueva publicación recibida:', data)
+socket.on('nuevoComentario', (data) => {
+  console.log('[cliente] Nuevo comentario recibido', data)
 })
-
 socket.on('ErrorEmitir', (err) => {
   console.error('[Cliente] Error emitido:', err)
 })

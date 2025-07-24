@@ -5,6 +5,8 @@ import { router } from './routes/auth.routes'
 import { routerRole } from './routes/roles.routes'
 import { socketPost } from './socket/post.socket'
 import { routerPost } from './routes/post.routes'
+import { routerComment } from './routes/comment.routes'
+import { socketComents } from './socket/comment.socket'
 
 const app = express()
 
@@ -22,7 +24,10 @@ app.use(express.json())
 io.on('connection', (socket) => {
   console.log('[+] New user logged in')
   socketPost(socket, io)
+  socketComents(socket, io)
 })
+
 app.use('/api', router)
 app.use('/api', routerRole)
 app.use('/api', routerPost)
+app.use('/api', routerComment)

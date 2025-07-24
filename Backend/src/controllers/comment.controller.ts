@@ -1,0 +1,28 @@
+import { Request, Response } from 'express'
+import { commentService } from '../services/comment.service'
+import { formatError } from '../utils/error.utils'
+import { commentCreateValidation } from '../validation/comment.validation'
+
+export const commentCreate = async (req: Request, res: Response) => {
+  try {
+    const { id_author, id_post } = req.params
+    if (!id_author || !id_post) throw new Error ('Error al encontrar los Ids')
+
+    const response = commentCreateValidation.safeParse(req.body)
+    if (!response.success)
+      throw new Error ('Error de validacion: ' + response.error.issues.map(e => e.message).join(', '))
+
+    const { content } = response.data
+    const newComment = commentService.createCommentPost({ content: content, id_author: id_author, id_post: id_post }) 
+
+    res.status(201).json({
+      message: `Comment creado a post ${id_post}`,
+      newComment
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Algo salio mal',
+      error: formatError(error)
+    })
+  }
+}

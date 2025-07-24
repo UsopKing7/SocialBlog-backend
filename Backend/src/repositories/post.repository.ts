@@ -40,5 +40,9 @@ export const postRepository = {
         id_post
       }
     })
+  },
+
+  findPost: async (id_post: string) => {
+    return await prisma.post.findUnique({ where: { id_post }})
   }
 }
