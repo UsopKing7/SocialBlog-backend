@@ -4,3 +4,4 @@ Backend/buildcache
 Backend/build
 *.sql
 Backend/prisma/migrations
+*.vscode
