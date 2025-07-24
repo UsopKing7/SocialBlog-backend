@@ -59,3 +59,6 @@ Content-Type: application/json
 {
   "content": "new content"
 }
+
+### Request para obtener todos los comentarios de un post
+GET http://localhost:3333/api/posts/comments/893c96c6-6e58-4f59-84e0-3753b01dd7ab

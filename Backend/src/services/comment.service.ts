@@ -38,5 +38,15 @@ export const commentService = {
     if (!commentUpdate) throw new Error ('Error al encontrar datos')
 
     return commentUpdate
+  },
+
+  getCommetsPost: async (id_post: string) => {
+    const post = await postRepository.findPost(id_post)
+    if (!post) throw new Error ('Error al encontrar el post')
+    
+    const getComments = await commentRepository.findCommentPost(id_post)
+    if (!getComments) throw new Error ('Error al encontrar commentarios en el post')
+    
+    return getComments
   }
 }

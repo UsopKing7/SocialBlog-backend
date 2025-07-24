@@ -17,5 +17,11 @@ export const commentRepository = {
     return await prisma.comment.findUnique({
       where: { id_comment }
     })
+  },
+
+  findCommentPost: async (id_post: string) => {
+    return await prisma.comment.findMany({
+      where: { id_post }
+    })
   }
 }

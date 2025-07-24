@@ -50,3 +50,22 @@ export const commentUpdate = async (req: Request, res: Response) => {
     })
   }
 }
+
+export const getComments = async (req: Request, res: Response) => {
+  try {
+    const { id_post } = req.params
+    if (!id_post) throw new Error ('Error al encontrar el Id')
+
+    const comments = await commentService.getCommetsPost(id_post)
+
+    res.status(200).json({
+      message: 'Comentarios del post',
+      comments
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Algo salio mal',
+      error: formatError(error)
+    })
+  }
+}
