@@ -1,5 +1,5 @@
 import { prisma } from '../config/db'
-import { CreateCommentDB, UpdaeCommentDB } from '../types/comment.type'
+import { CreateCommentDB, UpdaeCommentDB, DeleteCommentDB } from '../types/comment.type'
 export const commentRepository = {
   createComment: async (data: CreateCommentDB) => {
     return await prisma.comment.create({ data })
@@ -22,6 +22,12 @@ export const commentRepository = {
   findCommentPost: async (id_post: string) => {
     return await prisma.comment.findMany({
       where: { id_post }
+    })
+  },
+
+  deleteComment: async (ids: DeleteCommentDB) => {
+    return await prisma.comment.delete({
+      where: { id_comment: ids.id_comment }
     })
   }
 }

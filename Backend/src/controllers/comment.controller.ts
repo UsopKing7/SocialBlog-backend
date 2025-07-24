@@ -69,3 +69,24 @@ export const getComments = async (req: Request, res: Response) => {
     })
   }
 }
+
+export const deleteComment = async (req: Request, res: Response) => {
+  try {
+    const { id_author, id_post, id_comment } = req.params
+    if (!id_author || !id_post || !id_comment) throw ('Error al encontrar los Ids')
+
+    const deleteComment = await commentService.deleteComment({ id_author, id_post, id_comment })
+
+    if (!deleteComment) throw new Error ('Error al eliminar el comment')
+    
+    res.status(200).json({
+      message: 'Comment eliminado correctamente',
+      deleteComment
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Algo salio mal',
+      error: formatError(error)
+    })
+  }
+}

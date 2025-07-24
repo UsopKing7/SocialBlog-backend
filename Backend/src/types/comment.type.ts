@@ -12,3 +12,16 @@ export interface UpdaeCommentDB {
   id_post: string
   id_author: string
 }
+// Interface para eliminar un commentario
+export interface DeleteCommentDB {
+  id_comment: string
+  id_post: string
+  id_author: string
+}
+ 
+// Interface Comment para owner
+export interface Comment {
+  id_post: string
+  id_comment: string
+  id_author: string
+}
