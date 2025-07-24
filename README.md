@@ -107,9 +107,9 @@ npx prisma migrate deploy
 Ejemplo:
 
 ```env
-DATABASE_URL="postgresql://root:postgre@localhost:5432/blogdb"
+DATABASE_URL="postgresql://root:postgres@db:5432/socialblog_backend" => tal y como esta
 SECRET_KEY="supersecreto"
-PORT=3000
+PORT=3333
 SAL=10
 ```
 
