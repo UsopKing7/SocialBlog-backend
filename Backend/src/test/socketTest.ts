@@ -8,17 +8,16 @@ const socket = io('http://localhost:3333', {
 socket.on('connect', () => {
   console.log('[Cliente] Conectado con ID:', socket.id)
 
-  socket.emit('comment', {
-    content: 'nuevo comentario para el post',
-    id_author: "b244faf7-5122-44fb-8b52-68edb65d1952",
-    id_post: "893c96c6-6e58-4f59-84e0-3753b01dd7ab",
+  socket.emit('likeComment', {
+    id_user: "b244faf7-5122-44fb-8b52-68edb65d1952",
+    id_comment: "0057c28c-c4a3-483b-b968-02ba507d91b8",
   })
 })
 
-socket.on('nuevoComentario', (data) => {
-  console.log('[cliente] Nuevo comentario recibido', data)
+socket.on('newLikeComment', (data) => {
+  console.log('[cliente] Nuevo like para el comment', data)
 })
-socket.on('ErrorEmitir', (err) => {
+socket.on('ErrorEmitLikeComment', (err) => {
   console.error('[Cliente] Error emitido:', err)
 })
 

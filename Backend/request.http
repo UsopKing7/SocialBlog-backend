@@ -65,3 +65,15 @@ GET http://localhost:3333/api/posts/comments/893c96c6-6e58-4f59-84e0-3753b01dd7a
 
 ### Request para eliminar un commentario
 DELETE http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/post/893c96c6-6e58-4f59-84e0-3753b01dd7ab/comment/3a6a2343-2431-4ae0-8880-628a7c6979d3/delete-comment
+
+### Request para dar like a un post
+POST http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/post/893c96c6-6e58-4f59-84e0-3753b01dd7ab/like
+
+### Request para eliminar el like
+DELETE http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/post/893c96c6-6e58-4f59-84e0-3753b01dd7ab/dislike
+
+### Request para dar like a un comment
+POST http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/comment/0057c28c-c4a3-483b-b968-02ba507d91b8/like
+
+### Request para eliminar like del comment
+DELETE http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/comment/0057c28c-c4a3-483b-b968-02ba507d91b8/dislike

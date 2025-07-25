@@ -7,6 +7,9 @@ import { socketPost } from './socket/post.socket'
 import { routerPost } from './routes/post.routes'
 import { routerComment } from './routes/comment.routes'
 import { socketComents } from './socket/comment.socket'
+import { socketLike } from './socket/like.socket'
+import { routerLike } from './routes/like.routes'
+import { socketLikeComment } from './socket/like-comment.socket'
 
 const app = express()
 
@@ -25,9 +28,12 @@ io.on('connection', (socket) => {
   console.log('[+] New user logged in')
   socketPost(socket, io)
   socketComents(socket, io)
+  socketLike(socket, io)
+  socketLikeComment(socket, io)
 })
 
 app.use('/api', router)
 app.use('/api', routerRole)
 app.use('/api', routerPost)
 app.use('/api', routerComment)
+app.use('/api', routerLike)
