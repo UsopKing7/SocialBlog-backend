@@ -108,7 +108,7 @@ Ejemplo:
 
 ```env
 DATABASE_URL="postgresql://root:postgres@db:5432/socialblog_backend"
-SECRET_KEY="este es mi super secreto XD esto es prueba AJAJA"
+SECRET_KEY="tuSecretKey"
 PORT=3333
 SAL=10
 URL_REDIS="redis://redis:6379"
