@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### Request para creacion de roles
-POST http://localhost:3333/api/create/role/b244faf7-5122-44fb-8b52-68edb65d1952
+POST http://localhost:3333/api/create/role/1c7e940d-5d82-4a62-8619-7c16cc541643
 Content-Type: application/json
 
 {
@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 ### Request para creacion de post => publicacion
-POST http://localhost:3333/api/user/create-post/b244faf7-5122-44fb-8b52-68edb65d1952  
+POST http://localhost:3333/api/user/create-post/1c7e940d-5d82-4a62-8619-7c16cc541643
 Content-Type: application/json
 
 {

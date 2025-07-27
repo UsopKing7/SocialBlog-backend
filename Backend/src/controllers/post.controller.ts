@@ -1,6 +1,7 @@
 import { redis } from '../config/redis'
 import { postService } from '../services/posts.service'
 import { formatError } from '../utils/error.utils'
+import { validatioBody } from '../utils/validation.utils'
 import { postCreateValidacion, postUpdateValidacion } from '../validation/post.validacion'
 import { Request, Response } from 'express'
 
@@ -10,7 +11,7 @@ export const postCreateUser = async (req: Request, res: Response) => {
     const response = postCreateValidacion.safeParse(req.body)
 
     if (!id) throw new Error ('Error al obtener el id del parametro')
-    if (!response.success) throw new Error ('Error de validacion: ' + response.error.issues.map(e => e.message).join(', '))
+    if (!response.success) throw new Error (validatioBody(response))
 
     const { title, content } = response.data
     const newPost = await postService.createPostUser({ title, content, id_author: id})
@@ -33,7 +34,7 @@ export const postUpdateUser = async (req: Request, res: Response) => {
     const response = postUpdateValidacion.safeParse(req.body)
 
     if (!id_author || !id_post) throw new Error ('Error al encontrar los Ids')
-    if (!response.success) throw new Error('Error de validacion: ' + response.error.issues.map(e => e.message).join(', '))
+    if (!response.success) throw new Error (validatioBody(response))
     
     const { content, title } = response.data
     const updateData: {

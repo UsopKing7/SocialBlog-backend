@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { commentService } from '../services/comment.service'
 import { formatError } from '../utils/error.utils'
 import { commentCreateValidation, commentUpdateValidation } from '../validation/comment.validation'
+import { validatioBody } from '../utils/validation.utils'
 
 export const commentCreate = async (req: Request, res: Response) => {
   try {
@@ -9,8 +10,7 @@ export const commentCreate = async (req: Request, res: Response) => {
     if (!id_author || !id_post) throw new Error ('Error al encontrar los Ids')
 
     const response = commentCreateValidation.safeParse(req.body)
-    if (!response.success)
-      throw new Error ('Error de validacion: ' + response.error.issues.map(e => e.message).join(', '))
+    if (!response.success) throw new Error (validatioBody(response))
 
     const { content } = response.data
     const newComment = commentService.createCommentPost({ content: content, id_author: id_author, id_post: id_post }) 
@@ -33,7 +33,7 @@ export const commentUpdate = async (req: Request, res: Response) => {
     if (!id_author || !id_comment || !id_post ) throw new Error ('Error al encontrar los Ids')
 
     const response = commentUpdateValidation.safeParse(req.body)
-    if (!response.success) throw new Error ('Error de validacion: ' + response.error.issues.map(e => e.message).join(' ,'))
+    if (!response.success) throw new Error (validatioBody(response))
     
     const { content } = response.data
     if (!content) throw new Error ('El comentario no puede estar vacio')

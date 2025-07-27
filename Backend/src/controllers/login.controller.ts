@@ -4,11 +4,12 @@ import { formatError } from '../utils/error.utils'
 import { schemaLogin } from '../validation/login.validation'
 import { generateTken } from '../utils/generateToken.utils'
 import { tokenService } from '../services/token.service'
+import { validatioBody } from '../utils/validation.utils'
 
 export const login = async (req: Request, res: Response) => {
   try {
     const response = schemaLogin.safeParse(req.body)
-    if (!response.success) throw new Error('Error de validacion ' + response.error.issues.map(e => e.message).join(', '))
+    if (!response.success) throw new Error (validatioBody(response))
     const { email, password } = response.data
     
     const user = await loginServices.login({ email, password })
