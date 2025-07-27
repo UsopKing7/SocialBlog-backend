@@ -1,3 +1,4 @@
+import { redis } from '../config/redis'
 import { postService } from '../services/posts.service'
 import { formatError } from '../utils/error.utils'
 import { postCreateValidacion, postUpdateValidacion } from '../validation/post.validacion'
@@ -63,7 +64,18 @@ export const postUpdateUser = async (req: Request, res: Response) => {
 
 export const getAllPosts = async (_req: Request, res: Response) => {
   try {
+    const cache = await redis.get('posts')
+    if (cache) {
+      const posts = JSON.parse(cache)
+      res.status(200).json({
+        message: 'Resùesta desde redis',
+        posts
+      })
+      return 
+    }
     const posts = await postService.getAllPost()
+
+    await redis.set('posts', JSON.stringify(posts), { EX: 60 })
 
     res.status(200).json({
       message: 'todos los Posts',
