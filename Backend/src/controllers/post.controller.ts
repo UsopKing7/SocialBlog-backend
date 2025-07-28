@@ -116,7 +116,9 @@ export const getAllPostsIdUser = async (req: Request, res: Response) => {
     }
 
     const postsUser = await postService.getAllPostId({ id_author })
+    const { options, value } = saveCache(postsUser)
 
+    await redis.set(key, value, options)
     res.status(200).json({
       message: `Posts del usuario ${id_author}`,
       postsUser
