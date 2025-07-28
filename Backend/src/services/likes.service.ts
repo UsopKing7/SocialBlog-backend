@@ -68,5 +68,29 @@ export const likeService = {
     const dislikeComment = await likesRepository.removeLikeComment(like.id_like)
 
     return dislikeComment
+  },
+
+  likeCountPost: async (id_post: string) => {
+    const post = await postRepository.findPost(id_post)
+    if (!post) throw new Error ('Error al encontrar el post')
+
+    const like = await likesRepository.findLikePost(id_post)
+    if (!like) throw new Error ('El post no tiene likes')
+
+    const likeTotalPost = await likesRepository.likeCountPost(id_post)
+
+    return likeTotalPost
+  },
+
+  likeContComments: async (id_comment: string) => {
+    const comment = await commentRepository.findComment(id_comment)
+    if (!comment) throw new Error ('Error al encontra el comment')
+
+    const like = await likesRepository.findLikeComent(id_comment)
+    if (!like) throw new Error ('El comment no tiene likes')
+
+    const totalLikesComment = await likesRepository.likeCountComment(id_comment)
+
+    return totalLikesComment
   }
 }

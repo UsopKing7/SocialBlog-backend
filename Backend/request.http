@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 ### Request para creacion de post => publicacion
-POST http://localhost:3333/api/user/create-post/1c7e940d-5d82-4a62-8619-7c16cc541643
+POST http://localhost:3333/api/user/create-post/485d136b-3df7-4584-8805-5b0f692ab940
 Content-Type: application/json
 
 {
@@ -47,7 +47,7 @@ Content-Type: application/json
 GET http://localhost:3333/api/posts
 
 ### Request para ontener todos los posts de un usuario
-GET http://localhost:3333/api/user/posts/b244faf7-5122-44fb-8b52-68edb65d1952
+GET http://localhost:3333/api/user/posts/485d136b-3df7-4584-8805-5b0f692ab940
 
 ### Request para eliminar un post por usuario
 DELETE http://localhost:3333/api/user/46140978-0352-49f0-af71-8907fcd8a77b/delete-post/9696a37f-4a43-424b-8675-3c645f61c456
@@ -61,13 +61,13 @@ Content-Type: application/json
 }
 
 ### Request para obtener todos los comentarios de un post
-GET http://localhost:3333/api/posts/comments/893c96c6-6e58-4f59-84e0-3753b01dd7ab
+GET http://localhost:3333/api/posts/comments/415f72c9-df98-4e2e-87b8-f5b5a45c2429
 
 ### Request para eliminar un commentario
 DELETE http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/post/893c96c6-6e58-4f59-84e0-3753b01dd7ab/comment/3a6a2343-2431-4ae0-8880-628a7c6979d3/delete-comment
 
 ### Request para dar like a un post
-POST http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/post/893c96c6-6e58-4f59-84e0-3753b01dd7ab/like
+POST http://localhost:3333/api/user/7816e719-6b25-41fa-8f81-36abac7e902d/post/82f87bb3-abe9-49e3-8206-2d98841a81bd/like
 
 ### Request para eliminar el like
 DELETE http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/post/893c96c6-6e58-4f59-84e0-3753b01dd7ab/dislike
@@ -77,3 +77,14 @@ POST http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/comment
 
 ### Request para eliminar like del comment
 DELETE http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/comment/0057c28c-c4a3-483b-b968-02ba507d91b8/dislike
+
+### Reques para contar los likes de un post
+GET http://localhost:3333/api/post/82f87bb3-abe9-49e3-8206-2d98841a81bd/total-likes
+
+### Request para crear un comentario
+POST http://localhost:3333/api/user/485d136b-3df7-4584-8805-5b0f692ab940/post/415f72c9-df98-4e2e-87b8-f5b5a45c2429/create-comment
+Content-Type: application/json
+
+{
+  "content": "este es su comment del post"
+}

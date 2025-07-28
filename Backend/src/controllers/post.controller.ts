@@ -1,5 +1,6 @@
 import { redis } from '../config/redis'
 import { postService } from '../services/posts.service'
+import { saveCache, verifyCache } from '../utils/cache.utils'
 import { formatError } from '../utils/error.utils'
 import { validatioBody } from '../utils/validation.utils'
 import { postCreateValidacion, postUpdateValidacion } from '../validation/post.validacion'
@@ -14,7 +15,12 @@ export const postCreateUser = async (req: Request, res: Response) => {
     if (!response.success) throw new Error (validatioBody(response))
 
     const { title, content } = response.data
-    const newPost = await postService.createPostUser({ title, content, id_author: id})
+    const newPost = await postService.createPostUser({ title, content, id_author: id })
+
+    await Promise.all([
+      redis.del('posts'),
+      redis.del(`getPostsIdUser:${id}`)
+    ])
 
     res.status(201).json({
       message: 'Post creado correctamente',
@@ -65,18 +71,20 @@ export const postUpdateUser = async (req: Request, res: Response) => {
 
 export const getAllPosts = async (_req: Request, res: Response) => {
   try {
-    const cache = await redis.get('posts')
-    if (cache) {
-      const posts = JSON.parse(cache)
+    const key = 'posts'
+    const cache = await redis.get(key)
+    const postsCache = verifyCache(cache)
+    if (postsCache !== null) {
       res.status(200).json({
-        message: 'Resùesta desde redis',
-        posts
+        message: 'todos los posts (cache)',
+        posts: postsCache
       })
-      return 
+      return
     }
     const posts = await postService.getAllPost()
+    const { options, value } = saveCache(posts)
 
-    await redis.set('posts', JSON.stringify(posts), { EX: 60 })
+    await redis.set(key, value, options)
 
     res.status(200).json({
       message: 'todos los Posts',
@@ -95,6 +103,18 @@ export const getAllPostsIdUser = async (req: Request, res: Response) => {
     const { id_author } = req.params
     if (!id_author) throw new Error ('Error al obtener el id')
     
+    const key = `getPostsIdUser:${id_author}`
+    const cache = await redis.get(key)
+
+    const postsUserCache = verifyCache(cache)
+    if (postsUserCache !== null) {
+      res.status(200).json({
+        message: `Post del usuario (cache) ${id_author}`,
+        postsUser: postsUserCache
+      })
+      return
+    }
+
     const postsUser = await postService.getAllPostId({ id_author })
 
     res.status(200).json({

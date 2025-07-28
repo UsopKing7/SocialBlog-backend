@@ -40,5 +40,29 @@ export const likesRepository = {
     return prisma.like.delete({
       where: { id_like }
     })
+  },
+
+  likeCountPost: async (id_post: string) => {
+    return prisma.like.count({
+      where: { id_post }
+    })
+  },
+
+  findLikePost: async (id_post: string) => {
+    return prisma.like.findFirst({
+      where: { id_post }
+    })
+  },
+
+  findLikeComent: async (id_comment: string) => {
+    return prisma.like.findFirst({
+      where: { id_comment }
+    })
+  },
+
+  likeCountComment: async (id_comment: string) => {
+    return await prisma.like.count({
+      where: { id_comment }
+    })
   }
 }
