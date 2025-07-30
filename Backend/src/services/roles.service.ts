@@ -15,5 +15,12 @@ export const roleServices = {
     })
 
     return newUserRole
+  },
+
+  getUserRoles: async (id_user: string) => {
+    const roles = await roleRepository.getRolesUser(id_user)
+    if (!roles) throw new Error ('El usuario no tiene roles asignados')
+
+    return roles 
   }
 }

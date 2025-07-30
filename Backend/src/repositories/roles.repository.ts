@@ -12,5 +12,16 @@ export const roleRepository = {
 
   createRole: async (data: CreateRole) => {
     return await prisma.role.create({ data })
+  },
+
+  getRolesUser: async (id_user: string) => {
+    const role = await prisma.userRole.findMany({
+      where: { id_user },
+      include: { role: true }
+    })
+    return role.map(r => ({
+      id: r.role.id_role,
+      name_role: r.role.name_role
+    }))
   }
 }

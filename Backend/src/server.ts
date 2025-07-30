@@ -10,8 +10,10 @@ import { socketComents } from './socket/comment.socket'
 import { socketLike } from './socket/like.socket'
 import { routerLike } from './routes/like.routes'
 import { socketLikeComment } from './socket/like-comment.socket'
+import cookieParser from 'cookie-parser'
 
 const app = express()
+app.use(cookieParser())
 
 export const server = http.createServer(app)
 export const io = new SocketServer(server, {
@@ -33,7 +35,7 @@ io.on('connection', (socket) => {
 })
 
 app.use('/api', router)
-app.use('/api', routerRole)
+app.use('/admin', routerRole)
 app.use('/api', routerPost)
 app.use('/api', routerComment)
 app.use('/api', routerLike)

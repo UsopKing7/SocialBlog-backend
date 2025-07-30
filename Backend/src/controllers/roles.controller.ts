@@ -1,3 +1,4 @@
+import { roleRepository } from '../repositories/roles.repository'
 import { roleServices } from '../services/roles.service'
 import { formatError } from '../utils/error.utils'
 import { validatioBody } from '../utils/validation.utils'
@@ -17,6 +18,23 @@ export const userRoleCreate = async (req: Request, res: Response) => {
     res.status(201).json({
       message: `rol creado correctamente al id ${id}}` ,
       newRole
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Algo salio mal',
+      error: formatError(error)
+    })
+  }
+}
+
+export const getRolesUser = async (req: Request, res: Response) => {
+  try {
+    const { id_user } = req.params
+    const roles = await roleRepository.getRolesUser(id_user)
+
+    res.status(200).json({
+      message: `Roles de usuarios`,
+      roles
     })
   } catch (error) {
     res.status(500).json({
