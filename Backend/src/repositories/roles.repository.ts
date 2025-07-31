@@ -21,7 +21,7 @@ export const roleRepository = {
     })
     return role.map(r => ({
       id: r.role.id_role,
-      name_role: r.role.name_role
+      name_role: r.role.name_role.toLowerCase()
     }))
   }
 }

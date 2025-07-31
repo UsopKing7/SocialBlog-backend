@@ -18,4 +18,4 @@ Content-Type: application/json
 }
 
 ### Request para filtrar usuarios con el rol ADMIN or admin
-GET http://localhost:3333/admin/usuarios/94ed23b9-dcec-40c1-9cb3-a5a16287c279/roles 
+GET http://localhost:3333/admin/usuarios/7309ed09-44da-403e-b507-f569cd0a2224/roles 

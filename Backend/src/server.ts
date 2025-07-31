@@ -11,6 +11,7 @@ import { socketLike } from './socket/like.socket'
 import { routerLike } from './routes/like.routes'
 import { socketLikeComment } from './socket/like-comment.socket'
 import cookieParser from 'cookie-parser'
+import { routerReport } from './routes/report.routes'
 
 const app = express()
 app.use(cookieParser())
@@ -39,3 +40,4 @@ app.use('/admin', routerRole)
 app.use('/api', routerPost)
 app.use('/api', routerComment)
 app.use('/api', routerLike)
+app.use('/admin', routerReport)
