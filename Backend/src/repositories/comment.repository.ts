@@ -29,5 +29,11 @@ export const commentRepository = {
     return await prisma.comment.delete({
       where: { id_comment: ids.id_comment }
     })
+  },
+
+  deleteCommentReporte: async (id_comment: string) => {
+    return await prisma.comment.delete({
+      where: { id_comment }
+    })
   }
 }

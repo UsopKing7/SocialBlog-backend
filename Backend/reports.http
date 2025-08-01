@@ -8,3 +8,12 @@ Content-Type: application/json
 
 ### Request para obtener todos los reportes
 GET http://localhost:3333/admin/user/7309ed09-44da-403e-b507-f569cd0a2224/reports
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoiNzMwOWVkMDktNDRkYS00MDNlLWI1MDctZjU2OWNkMGEyMjI0IiwiZW1haWwiOiJuaWNvbGFzZ3VhcmFjaGk4ODhAZ21haWwuY29tIiwiaWF0IjoxNzU0MDA3NDE0LCJleHAiOjE3NTQ2MTIyMTR9.p1n6ec-epnNCw2qoA_NJomzlXSY_oXQ8tcJtHRgGkH8
+
+### Request para poner un report como visto por el admin
+PATCH http://localhost:3333/admin/user/7309ed09-44da-403e-b507-f569cd0a2224/comment/a098fcaa-3a31-4875-8d6d-aaf12070af9b/52786586-7f68-41c3-a57d-9f92531d0be6/views
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoiNzMwOWVkMDktNDRkYS00MDNlLWI1MDctZjU2OWNkMGEyMjI0IiwiZW1haWwiOiJuaWNvbGFzZ3VhcmFjaGk4ODhAZ21haWwuY29tIiwiaWF0IjoxNzU0MDA3NDE0LCJleHAiOjE3NTQ2MTIyMTR9.p1n6ec-epnNCw2qoA_NJomzlXSY_oXQ8tcJtHRgGkH8
+
+### Requesta depedir el comment
+DELETE http://localhost:3333/admin/user/7309ed09-44da-403e-b507-f569cd0a2224/comment/a098fcaa-3a31-4875-8d6d-aaf12070af9b/report/52786586-7f68-41c3-a57d-9f92531d0be6/del
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoiNzMwOWVkMDktNDRkYS00MDNlLWI1MDctZjU2OWNkMGEyMjI0IiwiZW1haWwiOiJuaWNvbGFzZ3VhcmFjaGk4ODhAZ21haWwuY29tIiwiaWF0IjoxNzU0MDA3NDE0LCJleHAiOjE3NTQ2MTIyMTR9.p1n6ec-epnNCw2qoA_NJomzlXSY_oXQ8tcJtHRgGkH8

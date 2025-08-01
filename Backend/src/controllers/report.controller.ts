@@ -67,3 +67,44 @@ export const reportes = async (req: Request, res: Response) => {
     })
   }
 }
+
+export const stateViewReport = async (req: Request, res: Response) => {
+  try {
+    const { id_reporter, id_comment, id_report } = req.params
+    if (!id_reporter || !id_comment || !id_report) throw new Error ('Error al encontrar los Ids')
+    
+    const reportState = await commentReport.updateStatusReport({
+      id_comment, id_report, id_reporter
+    })
+
+    res.status(200).json({
+      message: 'Reporte visto exitosamente',
+      reportState
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Algo salio mal',
+      error: formatError(error)
+    })
+  }
+}
+
+export const stateDelReport = async (req: Request, res: Response) => {
+  try {
+    const { id_report, id_comment, id_reporter } = req.params
+
+    const delCommentReport = await commentReport.updateStatusReportDel({
+      id_comment, id_report, id_reporter
+    })
+
+    res.status(200).json({
+      message: 'Commentario eliminado por el administrador de sistemas.',
+      delCommentReport
+    })
+  } catch (error) {
+    res.status(500).json({
+      message: 'Algo salio mal',
+      error: formatError(error)
+    })
+  }
+}

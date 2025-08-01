@@ -61,7 +61,7 @@ Content-Type: application/json
 }
 
 ### Request para obtener todos los comentarios de un post
-GET http://localhost:3333/api/posts/comments/415f72c9-df98-4e2e-87b8-f5b5a45c2429
+GET http://localhost:3333/api/posts/comments/1ec4eb49-c11e-4740-a20d-b78fe0439c92
 
 ### Request para eliminar un commentario
 DELETE http://localhost:3333/api/user/b244faf7-5122-44fb-8b52-68edb65d1952/post/893c96c6-6e58-4f59-84e0-3753b01dd7ab/comment/3a6a2343-2431-4ae0-8880-628a7c6979d3/delete-comment
@@ -90,7 +90,7 @@ Content-Type: application/json
 }
 
 ### Requesta para reportar un comentrario
-POST http://localhost:3333/api/user/7309ed09-44da-403e-b507-f569cd0a2224/message/a098fcaa-3a31-4875-8d6d-aaf12070af9b
+POST http://localhost:3333/admin/user/7309ed09-44da-403e-b507-f569cd0a2224/comments/517a7361-0ac6-4e68-aed0-443e8ff5797b
 Content-Type: application/json
 
 {
