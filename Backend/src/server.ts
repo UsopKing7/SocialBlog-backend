@@ -13,7 +13,7 @@ import { socketLikeComment } from './socket/like-comment.socket'
 import cookieParser from 'cookie-parser'
 import { routerReport } from './routes/report.routes'
 
-const app = express()
+export const app = express()
 app.use(cookieParser())
 
 export const server = http.createServer(app)
