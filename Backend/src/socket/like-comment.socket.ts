@@ -2,28 +2,19 @@ import { Server, Socket } from 'socket.io'
 import { likeService } from '../services/likes.service'
 import { formatError } from '../utils/error.utils'
 import { redis } from '../config/redis'
-import { saveCache, verifyCache } from '../utils/cache.utils'
 
 export const socketLikeComment = async (socket: Socket, io: Server) => {
-  socket.on('likeComment', async (data) => {
+  socket.on('likeComment:create', async (data) => {
     try {
-      const key = `likeComment:${data.id_comment}`
-      const cache = await redis.get(key)
-
-      const newLikeCache = verifyCache(cache)
-      if (newLikeCache !== null) {
-        io.emit('newLikeCache', newLikeCache)
-        return
-      }
-
       const newLike = await likeService.likePushComment(data)
-      const { options, value } = saveCache(newLike)
 
-      await redis.set(key, value, options)
+      await Promise.all([
+        redis.del(`likeComment:${data.id_comment}`)
+      ])
 
-      io.emit('newLikeComment', newLike)
+      io.emit('likeComment:created', newLike)
     } catch (error) {
-      socket.emit('errorEmitLikeComment', {
+      socket.emit('likeComment:error', {
         message: 'Error al emitir like comment',
         error: formatError(error)
       })

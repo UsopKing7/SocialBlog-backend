@@ -49,7 +49,11 @@ export const likeComment = async (req: Request, res: Response) => {
     if (!id_comment || !id_user) throw new Error ('Error al obtener los Ids')
 
     const like = await likeService.likePushComment({ id_comment, id_user })
-    
+
+    await Promise.all([
+      redis.del(`likeComment:${id_comment}`)
+    ])
+
     res.status(201).json({
       message: 'Like puesto al comentario',
       like

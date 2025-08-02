@@ -1,31 +1,24 @@
 import { Server, Socket } from 'socket.io'
 import { postService } from '../services/posts.service'
 import { formatError } from '../utils/error.utils'
-import { saveCache, verifyCache } from '../utils/cache.utils'
 import { redis } from '../config/redis'
 
 export const socketPost = (socket: Socket, io: Server) => {
   // socket para publicaciones = Post
-  socket.on('publicacion', async (data) => {
+  socket.on('post:create', async (data) => {
     try {
-      const key = `post:${data.id_post}`
-      const cache = await redis.get(key)
+      const newPost = await postService.createPostUser(data)
 
-      const newPublicacionCache = verifyCache(cache)
-      if (newPublicacionCache !== null) {
-        io.emit('newPublicacionCache', newPublicacionCache)
-        return
-      }
+      await Promise.all([
+        redis.del('posts'),
+        redis.del(`getPostsIdUser:${data.id_author}`)
+      ])
 
-      const newPublicacion = await postService.createPostUser(data)
-      const { options, value } = saveCache(newPublicacion)
-
-      await redis.set(key, value, options)
-      io.emit('nuevaPublicacion', newPublicacion)
+      io.emit('post:created', newPost)
     } catch (error) {
       console.log('[-] Error al emitir la publicacion', formatError(error))
-
-      socket.emit('ErrorEmitir', {
+      
+      socket.emit('post:error', {
         message: 'Erro socket',
         error: formatError(error)
       })

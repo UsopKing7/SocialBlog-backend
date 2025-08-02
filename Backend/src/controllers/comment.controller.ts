@@ -15,7 +15,11 @@ export const commentCreate = async (req: Request, res: Response) => {
     if (!response.success) throw new Error (validatioBody(response))
 
     const { content } = response.data
-    const newComment = await commentService.createCommentPost({ content: content, id_author: id_author, id_post: id_post }) 
+    const newComment = await commentService.createCommentPost({ content: content, id_author: id_author, id_post: id_post })
+
+    await Promise.all([
+      redis.del(`commentGetPost:${id_post}`)
+    ])
 
     res.status(201).json({
       message: `Comment creado a post ${id_post}`,
