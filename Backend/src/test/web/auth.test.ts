@@ -6,9 +6,11 @@ import request from 'supertest'
 describe('POST /api/login', () => {
   test('Se espera que el codigo de estado sea un 200', async () => {
     const response = await request(server).post('/api/login').send({
-      email: 'nicolasguarachi@gmail.com',
+      email: 'nicolasguarachi888@gmail.com',
       password: 'Nicolas-9090'
     })
     expect(response.statusCode).toBe(200)
   })
 })
+
+// ===> Test para la ruta /api/register
