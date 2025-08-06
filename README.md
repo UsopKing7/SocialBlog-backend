@@ -22,7 +22,7 @@ Este es un backend completo para un sistema de blog con funcionalidades avanzada
 ### 🧠 Autenticación y Autorización
 - Registro y login con JWT.
 - Middleware para proteger rutas.
-- Autorización por roles: `usuario`, `moderador`, `admin`.
+- Autorización por roles: `usuario`, `admin`.
 
 ### ✍️ CRUD de Posts y Comentarios
 - Crear, leer, actualizar y eliminar publicaciones.
@@ -64,15 +64,21 @@ Este es un backend completo para un sistema de blog con funcionalidades avanzada
 
 ```
 📁 src
-├── 📁 config          # Configuraciones generales (DB, JWT, Redis)
-├── 📁 controllers     # Lógica de cada entidad (posts, auth, etc.)
-├── 📁 middlewares     # Validaciones, autenticación, autorización
-├── 📁 models          # Modelos Prisma (en prisma/schema.prisma)
-├── 📁 routes          # Rutas agrupadas por recurso
-├── 📁 services        # Lógica de negocio reutilizable
-├── 📁 utils           # Funciones auxiliares
-├── 📄 app.ts          # Entrada principal de la app Express
-└── 📄 server.ts       # Inicializa servidor + WebSockets
+├── 📁 config         # Configuraciones globales (DB, JWT, Redis, etc.)
+├── 📁 controllers    # Manejo de lógica de entrada (Request → Response)
+├── 📁 middleware     # Autenticación, autorización y validaciones personalizadas
+├── 📁 reports        # Lógica para reportes y moderación de contenido
+├── 📁 repositories   # Abstracción de acceso a datos con Prisma
+├── 📁 routes         # Definición de rutas agrupadas por entidad (posts, auth, etc.)
+├── 📁 services       # Lógica de negocio reutilizable y desacoplada
+├── 📁 socket         # Implementación de WebSockets con Socket.IO
+├── 📁 test           # Pruebas automatizadas con Jest y Supertest
+├── 📁 types          # Tipado global con TypeScript
+├── 📁 utils          # Funciones auxiliares (helpers)
+├── 📁 validation     # Validaciones con Zod y middlewares personalizados
+├── 📄 app.ts         # Configuración principal de la app Express
+└── 📄 server.ts      # Arranque del servidor + integración con WebSockets
+
 ```
 
 ---
@@ -85,24 +91,17 @@ Este proyecto se ejecuta con Docker. Usa `docker-compose` para levantar todos lo
 - `backend`: API Node + Express
 - `postgres`: Base de datos
 - `redis`: Cache en memoria
-- `pgadmin`: Cliente web para PostgreSQL
 
 ### para iniciar proyecto en docker:
 
 ```bash
 # Levantar todos los servicios
 docker compose up --build
-
-# Entrar a la base de datos de docker 
-docker exec -it backend-socialblog_backend-1 sh
-
-# Correr migraciones
-npx prisma migrate deploy
 ```
 
 ---
 
-## 🔐 Variables de entorno (.env)
+## 🔐 Variables de entorno (.env) para docker
 
 Ejemplo:
 
@@ -133,13 +132,37 @@ El proyecto es compatible con Jest o Vitest para pruebas unitarias y de integrac
 ✅ Reportes y sistema de moderación  
 ✅ WebSockets (likes y comentarios en tiempo real)  
 ✅ Docker funcionando con PostgreSQL y Redis  
-
-🚧 Documentación Swagger en proceso...  
-🚧 Pruebas unitarias más adelante...
+✅ Pruebas unitarias más adelante...
 
 ---
+
+# Contribución
+Si deseas contribuir al proyecto, por favor sigue estos pasos:
+
+1. Haz un fork del repositorio.
+2. Crea una rama para tu funcionalidad o corrección:
+  ```bash
+  git checkout -b nombre-de-tu-rama
+  ```
+3. Realiza tus cambios y haz un commit:
+  ```bash
+  git commit -m "Descripción de los cambios"
+  ```
+4. Envía tus cambios al repositorio remoto:
+  ```bash
+  git push origin nombre-de-tu-rama
+  ```
+5. Crea un pull request.
+
+## Soporte
+
+Si tienes problemas al utilizar este script o tienes preguntas, no dudes en abrir un **issue** en el repositorio. Nos esforzamos por responder lo antes posible y ayudar a resolver cualquier inconveniente.
+
+## Agradecimientos
+
 
 ## 🧑‍💻 Autor
 
 Proyecto desarrollado por **@UsopKing7**  
 Con ❤️ por la comunidad, para seguir creciendo como fullstack
+Gracias por utilizar este proyecto. Si lo encuentras útil, ¡no dudes en dejar una estrella ⭐ en GitHub!
